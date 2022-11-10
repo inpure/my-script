@@ -1,2 +1,2 @@
 # mfy
-some scripts
+script tools

@@ -1,0 +1,2 @@
+10 0 * * * root /bin/python /tmp/new_speed_test/new_speed_test.py > /dev/null 2>&1
+30 11 * * * root /bin/sh /tmp/new_speed_test/kill_new_speed_test.sh > /dev/null 2>&1

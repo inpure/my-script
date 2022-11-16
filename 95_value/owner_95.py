@@ -13,7 +13,7 @@ all_host = "https://new.p2pcdn.com/app.py/devapi/getServersJSON?key=QNaUjD71KWZv
 
 
 def get_host_id():
-    res = requests.get(all_host)
+    res = requests.get(all_host, verify=False)
     return {i["hostname"]: i["id"] for i in res.json() if i["status"] in {1, 2, 4}} # 1：离线，2：在线， 4：已审核
 
 
@@ -38,7 +38,7 @@ def get_v_95(hostname, s, e):
 
 
 def get_hosts(business, owner_name):
-    res = requests.get(hosts_url)
+    res = requests.get(hosts_url, verify=False)
     host_list = []
 
     for host in res.json():

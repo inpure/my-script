@@ -6,6 +6,7 @@
 import datetime
 import owner_95
 import time
+import warnings
 
 
 def day_95(business , owner_name, _date):
@@ -34,4 +35,5 @@ def main(business , owner_name, in_date, days):
 
 
 if __name__ == '__main__':
+    warnings.filterwarnings(action='ignore')
     main(business = "长A", owner_name = "MF_0002022", in_date="2022-10-07", days=3) # in_date:开始日期，days：统计天数

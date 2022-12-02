@@ -23,4 +23,4 @@ awk -F\' '$1=="menuentry " {print $2}' /etc/grub2.cfg
 rpm -qa | grep kernel
 #yum remove kernel-lt-devel-5.4.120-1.el7.elrepo.x86_64
 cat /etc/grub2.cfg|grep kernel-lt-devel
-grub2-set-default 1
+#grub2-set-default 1

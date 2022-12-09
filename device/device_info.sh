@@ -18,7 +18,7 @@ disk_boot_capacity=$(lsblk -bd -o name,size /dev/$disk_boot | tail -n 1 |awk '{p
 #数据盘数量
 disk_num=$(lsblk | grep -o sd[a-z] | uniq | grep -v $disk_boot | wc -l)
 #数据盘大小
-disk_capacity=$(lsblk -bd -o name,size|grep -Ev "$disk_boot|sr|loop" |tail -n 1 | awk '{print int($2/1000/1000/1000/1000)}')"T_SATA"
+disk_capacity=$(lsblk -bd -o name,size|grep -Ev "$disk_boot|sr|loop" |tail -n 1 | awk '{print int($2/1000/1000/1000/1000)}')"T"
 #万兆网卡数量
 get_nc_10G_num(){
     nc_10G=$(lspci | grep -i ethernet|grep -E '10-G|10G|10 G'|wc -l)
@@ -47,6 +47,15 @@ check_disk_type(){
     fi
 }
 
+#磁盘接口
+check_disk_itf(){
+    smartctl -a /dev/$(lsblk | grep -o sd[a-z] | uniq | grep -v $disk_boot|head -n 1) |grep SAS > /dev/null 2>&1
+    if [ $? == 0 ];then
+      disk_itf="_SAS"
+    else
+      disk_itf="_SATA"
+}
+
 main(){
     get_nc_10G_num
     check_disk_type
@@ -63,6 +72,6 @@ main(){
     #echo "万兆网卡数量：$nc_10G"
 
     #企业微信公告格式
-    echo "${d_Manufacturer} ${d_product}/${d_cpu}*${physical_cpu_num}/${d_mem}/${disk_boot_capacity}${disk_type}+${disk_capacity}*${disk_num}"
+    echo "${d_Manufacturer} ${d_product}/${d_cpu}*${physical_cpu_num}/${d_mem}/${disk_boot_capacity}${disk_type}+${disk_capacity}${disk_itf}*${disk_num}"
 }
 main

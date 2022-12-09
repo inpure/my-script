@@ -54,11 +54,13 @@ check_disk_itf(){
       disk_itf="_SAS"
     else
       disk_itf="_SATA"
+    fi
 }
 
 main(){
     get_nc_10G_num
     check_disk_type
+    check_disk_itf
 
     #echo "制造商：$d_Manufacturer"
     #echo "设备名称：$d_product"
